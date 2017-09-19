@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .models import Article, Category
+from .models import Article, Category, Post
 from .serializers import AutoCompleteSerializer
 
 
@@ -25,3 +25,12 @@ class TestSerializer(TestCase):
         right_result = {i + 1: name for i, name in enumerate(self.category_initial)}
         self.assertEqual(ser.data, right_result)
 
+    def test_posts_with_uuid_identity(self):
+        self.post_initial = ['Post %d' % i for i in range(1, 3)]
+        posts = [Post(title=title) for title in self.post_initial]
+        Post.objects.bulk_create(posts)
+
+        ser = AutoCompleteSerializer(Post.objects.all(),
+                                     id_field_name='id', name_field_name='propname', many=True)
+        right_result = {str(obj.id): obj.propname for obj in Post.objects.all()}
+        self.assertEqual(ser.data, right_result)

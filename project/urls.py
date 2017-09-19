@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from .view import CategoryAutocompleteView
+from .view import CategoryAutocompleteView, PostAutocompleteView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^categories-autocomplete/$', CategoryAutocompleteView.as_view(),
-        name='autocomplete_category_list')
+        name='autocomplete_category_list'),
+    url(r'^posts-autocomplete/$', PostAutocompleteView.as_view(),
+        name='autocomplete_post_list'),
 ]

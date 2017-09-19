@@ -43,7 +43,9 @@ class AutoCompleteSerializer(serializers.ModelSerializer):
         return self
 
     def get_id(self, obj):
-        return getattr(obj, self.id_field_name)
+        val = getattr(obj, self.id_field_name)
+        return str(val)
 
     def get_name(self, obj):
-        return getattr(obj, self.name_field_name)
+        val = getattr(obj, self.name_field_name)
+        return str(val)
