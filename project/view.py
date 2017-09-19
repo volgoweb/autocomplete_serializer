@@ -14,7 +14,6 @@ class CategoryAutocompleteView(ListAPIView):
         """
         kwargs['context'] = self.get_serializer_context()
         return AutoCompleteSerializer(*args,
-                                      model_cls=Category,
                                       id_field_name='id',
-                                      name_field_name='name',
+                                      name_field_name='propname',
                                       **kwargs)

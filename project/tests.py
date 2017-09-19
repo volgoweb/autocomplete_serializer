@@ -11,7 +11,7 @@ class TestSerializer(TestCase):
         Article.objects.bulk_create(articles)
 
         ser = AutoCompleteSerializer(Article.objects.all(),
-                                     model_cls=Article, id_field_name='id', name_field_name='title', many=True)
+                                     id_field_name='id', name_field_name='propname', many=True)
         right_result = {i + 1: title for i, title in enumerate(self.article_initial)}
         self.assertEqual(ser.data, right_result)
 
@@ -21,7 +21,7 @@ class TestSerializer(TestCase):
         Category.objects.bulk_create(categories)
 
         ser = AutoCompleteSerializer(Category.objects.all(),
-                                     model_cls=Category, id_field_name='id', name_field_name='name', many=True)
+                                     id_field_name='id', name_field_name='name', many=True)
         right_result = {i + 1: name for i, name in enumerate(self.category_initial)}
         self.assertEqual(ser.data, right_result)
 
